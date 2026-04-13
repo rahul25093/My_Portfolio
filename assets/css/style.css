@@ -469,23 +469,39 @@ main {
 
 .navbar-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Keeps everything on one line */
   justify-content: center;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 10px 0 0px; /* Removes left padding on the main container */
+  gap: 5px; /* Slight spacing between items */
 }
 
 .navbar-link {
   color: var(--light-gray);
   font-size: var(--fs-8);
-  padding: 20px 7px;
+  padding: 20px 5px; /* Reduced side padding so all 8 items fit */
   transition: color var(--transition-1);
+  
+  /* Additions to make buttons and links behave perfectly */
+  white-space: nowrap; /* Prevents text from splitting into two lines */
+  text-decoration: none; /* Removes underline from the Resume link */
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* This targets ONLY the "About" button to close that left gap */
+.navbar-item:first-child .navbar-link {
+  padding-left: 2px; /* Change to 0px if you want it touching the edge completely */
 }
 
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
 .navbar-link.active { color: var(--orange-yellow-crayola); }
+
+
 
 
 
