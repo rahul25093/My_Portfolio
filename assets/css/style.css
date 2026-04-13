@@ -503,7 +503,34 @@ main {
 
 
 
+/* Container for the projects */
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns in one row */
+  gap: 30px; /* Space between the cards */
+  list-style: none; /* Removes bullet points */
+  padding: 0;
+  margin: 0;
+}
 
+/* Make sure the project items fill their grid cells properly */
+.project-item {
+  width: 100%;
+  display: block;
+}
+
+/* RESPONSIVE DESIGN: Stack them on smaller screens so they don't look squished */
+@media (max-width: 900px) {
+  .project-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 in a row on tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .project-list {
+    grid-template-columns: 1fr; /* 1 in a row on phones */
+  }
+}
 
 
 
