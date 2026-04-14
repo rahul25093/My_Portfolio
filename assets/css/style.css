@@ -129,7 +129,11 @@ a { text-decoration: none; }
 
 li { list-style: none; }
 
-img, ion-icon, a, button, time, span { display: block; }
+img {
+  max-width: 100%; /* Ensures images scale down to fit the phone screen */
+  height: auto;
+  display: block;
+}
 
 button {
   font: inherit;
@@ -293,20 +297,15 @@ article.active {
 }
 
 
-
-
-
 /*-----------------------------------*\
   #MAIN
 \*-----------------------------------*/
 
 main {
   margin: 15px 12px;
-  margin-bottom: 75px;
+  margin-bottom: 15px; /* Reverted back to 15px */
   min-width: 259px;
 }
-
-
 
 
 
@@ -321,7 +320,9 @@ main {
   transition: var(--transition-2);
 }
 
-.sidebar.active { max-height: 405px; }
+.sidebar.active { max-height: max-content;
+padding-bottom: 30px;
+}
 
 .sidebar-info {
   position: relative;
@@ -454,82 +455,60 @@ main {
   #NAVBAR
 \*-----------------------------------*/
 
+/*-----------------------------------*\
+  #NAVBAR
+\*-----------------------------------*/
+
+/*-----------------------------------*\
+  #NAVBAR
+\*-----------------------------------*/
+
 .navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  /* CHANGED: Removed position:fixed so it flows naturally under the sidebar */
+  position: relative;
   width: 100%;
-  background: hsla(240, 1%, 17%, 0.75);
-  backdrop-filter: blur(10px);
+  background: var(--eerie-black-2);
   border: 1px solid var(--jet);
-  border-radius: 12px 12px 0 0;
+  border-radius: 20px; /* Fully rounded corners for mobile */
   box-shadow: var(--shadow-2);
   z-index: 5;
+  margin-bottom: 15px; /* Adds breathing room below the navbar */
 }
 
 .navbar-list {
   display: flex;
-  flex-wrap: nowrap; /* Keeps everything on one line */
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start; 
   align-items: center;
-  padding: 0 10px 0 0px; /* Removes left padding on the main container */
-  gap: 5px; /* Slight spacing between items */
+  padding: 0 15px; 
+  gap: 15px; 
+  overflow-x: auto; /* Keeps horizontal scrolling */
+  scrollbar-width: none; 
+  scroll-behavior: smooth;
+}
+
+.navbar-list::-webkit-scrollbar {
+  display: none; 
 }
 
 .navbar-link {
   color: var(--light-gray);
   font-size: var(--fs-8);
-  padding: 20px 5px; /* Reduced side padding so all 8 items fit */
+  padding: 18px 5px; /* Adjusted padding to look like a neat menu */
   transition: color var(--transition-1);
-  
-  /* Additions to make buttons and links behave perfectly */
-  white-space: nowrap; /* Prevents text from splitting into two lines */
-  text-decoration: none; /* Removes underline from the Resume link */
+  white-space: nowrap; 
+  text-decoration: none; 
   background: none;
   border: none;
   font-family: inherit;
   cursor: pointer;
-}
-
-/* This targets ONLY the "About" button to close that left gap */
-.navbar-item:first-child .navbar-link {
-  padding-left: 2px; /* Change to 0px if you want it touching the edge completely */
+  flex-shrink: 0;
 }
 
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
 .navbar-link.active { color: var(--orange-yellow-crayola); }
-
-
-/* Container for the projects */
-.project-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns in one row */
-  gap: 30px; /* Space between the cards */
-  list-style: none; /* Removes bullet points */
-  padding: 0;
-  margin: 0;
-}
-
-/* Make sure the project items fill their grid cells properly */
-.project-item {
-  width: 100%;
-  display: block;
-}
-
-/* RESPONSIVE DESIGN: Stack them on smaller screens so they don't look squished */
-@media (max-width: 900px) {
-  .project-list {
-    grid-template-columns: repeat(2, 1fr); /* 2 in a row on tablets */
-  }
-}
-
-@media (max-width: 600px) {
-  .project-list {
-    grid-template-columns: 1fr; /* 1 in a row on phones */
-  }
-}
 
 
 /*-----------------------------------*\
@@ -2005,4 +1984,55 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+/*-----------------------------------*\
+  #TASKBAR FOOTER
+\*-----------------------------------*/
 
+.taskbar-footer {
+  position: fixed; /* Sticks it to the bottom like a taskbar */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: hsla(240, 1%, 17%, 0.85); /* Semi-transparent dark background */
+  backdrop-filter: blur(10px); /* Gives it a premium frosted glass look */
+  border-top: 1px solid var(--jet);
+  text-align: center;
+  padding: 12px 20px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*-----------------------------------*\
+  #FOOTER
+\*-----------------------------------*/
+
+.footer {
+  text-align: center;
+  padding: 15px 20px 30px;
+  width: 100%;
+}
+
+.footer p {
+  color: var(--light-gray);
+  font-size: var(--fs-6);
+  font-weight: var(--fw-300);
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap; /* Prevents text from breaking weirdly on small screens */
+}
+
+/* Keeps the subtle beating heart animation! */
+.heart {
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
