@@ -44,12 +44,13 @@
         /* Sidebar Base Styling */
         .sidebar {
           background: #11151c;
-          /* Deep dark background */
           border: 1px solid rgba(255, 255, 255, 0.05);
           border-radius: 20px;
           padding: 30px;
           box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
           transition: all 0.3s ease;
+          max-height: 290px;
+          overflow: hidden;
         }
 
         /* Avatar Styling with Glow Effect */
@@ -57,7 +58,6 @@
           background: linear-gradient(135deg, #3b82f6, #c678dd);
           border-radius: 50%;
           padding: 3px;
-          /* Creates the gradient border */
           width: 100px;
           height: 100px;
           margin: 0 auto 20px;
@@ -79,12 +79,18 @@
           height: 100%;
           object-fit: cover;
           background: #11151c;
-          /* Inner background behind image */
         }
 
         /* Name and Title */
+        .sidebar-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
         .info-content {
           text-align: center;
+          z-index: 2; /* Keeps text above any lingering shadows */
         }
 
         .name {
@@ -130,14 +136,12 @@
 
         .contact-item:hover {
           transform: translateX(5px);
-          /* Slide effect on hover */
         }
 
         /* Icon Boxes */
         .contact-item .icon-box {
           background: rgba(59, 130, 246, 0.1);
           color: #3b82f6;
-          /* Blue icon */
           width: 40px;
           height: 40px;
           border-radius: 10px;
@@ -208,28 +212,65 @@
           background: linear-gradient(135deg, #3b82f6, #c678dd);
           color: #ffffff;
           transform: translateY(-3px);
-          /* Lift up effect */
           box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
 
         /* Mobile Toggle Button */
         .info_more-btn {
-          color: #3b82f6;
-          background: transparent;
-          border: none;
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          margin: 15px auto 0;
-          cursor: pointer;
+          position: static !important;
+          color: #3b82f6 !important;
+          background: rgba(59, 130, 246, 0.1) !important;
+          border: 1px solid rgba(59, 130, 246, 0.2) !important;
+          padding: 8px 15px !important;
+          border-radius: 12px !important;
+          font-size: 14px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 5px !important;
+          margin: 15px auto 0 !important;
+          cursor: pointer !important;
+          box-shadow: none !important;
+          width: max-content;
+        }
+
+        /* THIS FIXES THE BUG: Kills the dark box that was covering your profile */
+        .info_more-btn::before {
+          display: none !important;
+        }
+
+        /* Ensures text and icon always show */
+        .info_more-btn span, 
+        .info_more-btn ion-icon {
+          display: block !important;
+        }
+
+        .info_more-btn:hover {
+          background: #3b82f6 !important;
+          color: #fff !important;
+        }
+
+        /* Expanded Mobile State */
+        .sidebar.active {
+          max-height: 800px;
+          padding-bottom: 30px;
+        }
+
+        /* Desktop Layout Rules */
+        @media (min-width: 1250px) {
+          .sidebar {
+            max-height: max-content !important;
+          }
+          /* THIS FIXES THE DESKTOP ISSUE: Completely hides the toggle button on PC */
+          .info_more-btn {
+            display: none !important;
+          }
         }
       </style>
 
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <!-- Fixed the alt text here too -->
           <img src="./assets/images/my-avatar.png" alt="Rahul Prajapati">
         </figure>
 
@@ -238,7 +279,9 @@
           <p class="title">Frontend Developer</p>
         </div>
 
-        <button data-sidebar-btn>
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <ion-icon name="chevron-down"></ion-icon>
         </button>
 
       </div>
@@ -255,7 +298,6 @@
             </div>
             <div class="contact-info">
               <p class="contact-title">Email</p>
-              <!-- Updated href to match your actual email -->
               <a href="mailto:rprahul25093@gmail.com" class="contact-link">rprahul25093@gmail.com</a>
             </div>
           </li>
@@ -296,21 +338,18 @@
 
         <ul class="social-list">
 
-          <!-- LinkedIn (Replaced Facebook) -->
           <li class="social-item">
             <a href="https://www.linkedin.com/in/rahul-prajapati-49ab9a280" class="social-link" title="LinkedIn">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
           </li>
 
-          <!-- GitHub -->
           <li class="social-item">
             <a href="https://github.com/rahul25093" class="social-link" title="GitHub">
               <ion-icon name="logo-github"></ion-icon>
             </a>
           </li>
 
-          <!-- Twitter / X (Replaced Instagram) -->
           <li class="social-item">
             <a href="https://www.instagram.com/_rahul_093" class="social-link" title="Instagram" target="_blank"
               rel="noopener noreferrer">
@@ -1570,10 +1609,14 @@
 
   </main>
 
-
-
-
-
+  <!-- Clean Footer -->
+  <footer class="footer">
+    <p>
+  &copy; 2026 Rahul Prajapati. Built in 
+  <img src="https://flagcdn.com/w20/in.png" alt="India Flag" style="vertical-align: middle; width:20px;">
+  with <span class="heart">❤️</span>
+</p>
+  </footer>
 
   <!--
     - custom js link
@@ -1585,6 +1628,8 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  
 
 </body>
 
